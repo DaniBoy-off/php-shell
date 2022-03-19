@@ -14,7 +14,7 @@
 
 
 
-    // c=
+    
     if ($parse[0] == "cd") {
         if ($parse[1] != "..") {
             $cwdant = $_SESSION['cwd'];
